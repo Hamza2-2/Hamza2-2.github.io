@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hamza Afzal — Portfolio</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          mono: ['JetBrains Mono', 'monospace'],
+          sans: ['Plus Jakarta Sans', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root {
+    --bg:           #0d1117;
+    --surface:      #161b22;
+    --elevated:     #1c2128;
+    --border:       #30363d;
+    --border-glow:  rgba(0,212,255,0.28);
+    --text-primary: #e6edf3;
+    --text-sec:     #8b949e;
+    --text-muted:   #484f58;
+    --cyan:         #00d4ff;
+    --purple:       #7c3aed;
+    --cyan-dim:     rgba(0,212,255,0.08);
+    --purple-dim:   rgba(124,58,237,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 88px 0; }
+
+  /* ── Backgrounds ── */
+  .dot-grid {
+    background-image: radial-gradient(rgba(0,212,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  .surface-bg { background: var(--surface); }
+
+  /* ── Typography ── */
+  .gradient-text {
+    background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.22s ease, transform 0.22s ease;
+  }
+  .card:hover { border-color: var(--border-glow); transform: translateY(-2px); }
+
+  /* ── Accent line ── */
+  .accent-line {
+    width: 36px; height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple));
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border-radius: 5px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .b-cyan   { background: var(--cyan-dim);   border-color: rgba(0,212,255,0.28);  color: var(--cyan); }
+  .b-purple { background: var(--purple-dim); border-color: rgba(124,58,237,0.28); color: #a78bfa; }
+  .b-gray   { background: rgba(139,148,158,0.08); border-color: var(--border);   color: var(--text-sec); }
+
+  /* ── Skill chips ── */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-sec);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .chip:hover { border-color: var(--border-glow); color: var(--cyan); }
+  .chip i { font-size: 15px; line-height: 1; }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(13,17,23,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    height: 58px;
+    display: flex; align-items: center;
+  }
+  .nav-link {
+    font-size: 13px;
+    color: var(--text-sec);
+    text-decoration: none;
+    transition: color 0.18s;
+  }
+  .nav-link:hover { color: var(--cyan); }
+
+  /* ── Social btn ── */
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-sec);
+    text-decoration: none;
+    background: var(--surface);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--border-glow); color: var(--cyan); }
+
+  /* ── Info row ── */
+  .info-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 96px; padding-top: 2px; }
+  .info-val { font-size: 14px; color: var(--text-primary); }
+
+  /* ── Bullet list ── */
+  .bullet-item { display: flex; gap: 10px; align-items: flex-start; }
+  .bullet-dot  { color: var(--purple); margin-top: 3px; flex-shrink: 0; font-size: 11px; }
+  .bullet-dot.cyan { color: var(--cyan); }
+
+  /* ── Section heading ── */
+  .section-head {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 44px;
+  }
+
+  /* ── Timeline ── */
+  .tl-dot {
+    width: 10px; height: 10px;
+    background: var(--cyan);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    outline: 2px solid var(--cyan);
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .tl-line {
+    width: 1px;
+    flex: 1;
+    background: linear-gradient(to bottom, var(--cyan), var(--border));
+    margin: 4px 0;
+  }
+
+  /* ── Fade-in ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fu  { animation: fadeUp 0.55s ease both; }
+  .d1  { animation-delay: 0.10s; }
+  .d2  { animation-delay: 0.20s; }
+  .d3  { animation-delay: 0.30s; }
+  .d4  { animation-delay: 0.45s; }
+  .d5  { animation-delay: 0.60s; }
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="wrap" style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+    <span class="mono" style="font-size:14px; color:var(--cyan); letter-spacing:0.04em;">hamza.afzal</span>
+    <div style="display:flex; gap:28px;">
+      <a href="#about"       class="nav-link">About</a>
+      <a href="#skills"      class="nav-link">Skills</a>
+      <a href="#projects"    class="nav-link">Projects</a>
+      <a href="#experience"  class="nav-link">Experience</a>
+      <a href="#achievements" class="nav-link">Achievements</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="dot-grid" style="min-height:100vh; display:flex; align-items:center; padding-top:58px;">
+  <div class="wrap" style="text-align:center; width:100%;">
+    <div class="fu"><span class="label">Islamabad, Pakistan · CS @ Bahria University</span></div>
+
+    <h1 class="fu d1 gradient-text"
+        style="font-size:clamp(52px,9vw,96px); font-weight:700; letter-spacing:-2.5px; line-height:1.02; margin-top:14px;">
+      Hamza Afzal
+    </h1>
+
+    <p class="fu d2"
+       style="font-size:16px; color:var(--text-sec); margin:18px auto 0; max-width:540px; line-height:1.7;">
+      Building intelligent, production-grade systems at the intersection of
+      multimodal AI, computer vision, and full-stack engineering.
+    </p>
+
+    <div class="fu d3" style="display:flex; gap:10px; justify-content:center; margin-top:32px; flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/hamza-afzal-754856253/" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+        </svg>LinkedIn
+      </a>
+      <a href="mailto:hamzaafzal.contact@gmail.com" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/>
+        </svg>Gmail
+      </a>
+      <a href="https://github.com/Hamza2-2" class="social-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.165c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 013.003-.404c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.63-5.373-12-12-12z"/>
+        </svg>GitHub
+      </a>
+    </div>
+
+    <div class="fu d4" style="display:flex; gap:8px; justify-content:center; margin-top:40px; flex-wrap:wrap;">
+      <span class="badge b-cyan">IEEE IGNITE 2026 Runner-Up</span>
+      <span class="badge b-purple">CGPA 3.7 / 4.0</span>
+      <span class="badge b-gray">Graduating June 2026</span>
+      <span class="badge b-gray">Merit Scholarship</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about" class="surface-bg">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="accent-line"></div>
+      <span class="label">About</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;">
+
+      <!-- Profile card -->
+      <div class="card" style="padding:28px;">
+        <p class="mono" style="font-size:11px; color:var(--text-muted); margin-bottom:20px;">profile.json</p>
+        <div>
+          <div class="info-row">
+            <span class="info-key">name</span>
+            <span class="info-val">Hamza Afzal</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">location</span>
+            <span class="info-val">Islamabad, Pakistan</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">university</span>
+            <span class="info-val">Bahria University Islamabad</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">degree</span>
+            <span class="info-val">BS Computer Science</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">cgpa</span>
+            <span class="info-val" style="color:var(--cyan);">3.7 / 4.0</span>
+          </div>
+          <div class="info-row">
+            <span class="info-key">graduation</span>
+            <span class="info-val">June 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:20px;">
+
+        <!-- Focus -->
+        <div class="card" style="padding:24px;">
+          <p class="label" style="margin-bottom:14px;">Current Focus</p>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <div class="bullet-item">
+              <span class="bullet-dot">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">Multimodal AI & Computer Vision Research</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-dot">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">Audio-Visual Scene Classification Systems</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-dot">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">Full-Stack Production Deployments</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recognition -->
+        <div class="card" style="padding:24px;">
+          <p class="label" style="margin-bottom:14px;">Recognition</p>
+          <div style="display:flex; flex-direction:column; gap:9px;">
+            <div class="bullet-item">
+              <span class="bullet-dot cyan">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">IEEE IGNITE 2026 — FYP Runner-Up</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-dot cyan">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">Merit Scholarship — Top 3 in Batch</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-dot cyan">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">PM Laptop Scheme Recipient (2025)</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-dot cyan">▸</span>
+              <span style="font-size:13px; color:var(--text-sec);">SOFTEC & ICPC Regional Competitor</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="accent-line"></div>
+      <span class="label">Tech Stack</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:28px;">
+
+      <div>
+        <p class="mono" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:12px;">LANGUAGES</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="chip"><i class="devicon-python-plain colored"></i>Python</span>
+          <span class="chip"><i class="devicon-cplusplus-plain colored"></i>C++</span>
+          <span class="chip"><i class="devicon-c-plain colored"></i>C</span>
+          <span class="chip"><i class="devicon-dart-plain colored"></i>Dart</span>
+          <span class="chip"><i class="devicon-javascript-plain colored"></i>JavaScript</span>
+          <span class="chip"><i class="devicon-latex-original colored"></i>LaTeX</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="mono" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:12px;">AI & MACHINE LEARNING</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="chip"><i class="devicon-pytorch-original colored"></i>PyTorch</span>
+          <span class="chip"><i class="devicon-tensorflow-original colored"></i>TensorFlow</span>
+          <span class="chip"><i class="devicon-keras-plain colored"></i>Keras</span>
+          <span class="chip"><i class="devicon-scikitlearn-plain colored"></i>Scikit-Learn</span>
+          <span class="chip"><i class="devicon-numpy-original colored"></i>NumPy</span>
+          <span class="chip" style="color:#76B900;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 2 4.5v15L12 24l10-4.5v-15z"/></svg>CUDA
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <p class="mono" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:12px;">FRONTEND & MOBILE</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="chip"><i class="devicon-flutter-plain colored"></i>Flutter</span>
+          <span class="chip"><i class="devicon-react-original colored"></i>React</span>
+          <span class="chip"><i class="devicon-tailwindcss-plain colored"></i>Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="mono" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:12px;">BACKEND & DATABASES</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="chip"><i class="devicon-nodejs-plain colored"></i>Node.js</span>
+          <span class="chip"><i class="devicon-express-original colored"></i>Express</span>
+          <span class="chip"><i class="devicon-flask-original colored"></i>Flask</span>
+          <span class="chip"><i class="devicon-django-plain colored"></i>Django</span>
+          <span class="chip"><i class="devicon-mongodb-plain colored"></i>MongoDB</span>
+          <span class="chip"><i class="devicon-mysql-plain colored"></i>MySQL</span>
+          <span class="chip"><i class="devicon-firebase-plain colored"></i>Firebase</span>
+          <span class="chip"><i class="devicon-sqlite-plain colored"></i>SQLite</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="mono" style="font-size:11px; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:12px;">DEVOPS & TOOLS</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="chip"><i class="devicon-git-plain colored"></i>Git</span>
+          <span class="chip"><i class="devicon-github-original colored"></i>GitHub</span>
+          <span class="chip"><i class="devicon-nginx-original colored"></i>Nginx</span>
+          <span class="chip"><i class="devicon-vscode-plain colored"></i>VS Code</span>
+          <span class="chip"><i class="devicon-arduino-plain colored"></i>Arduino</span>
+          <span class="chip"><i class="devicon-kaggle-original colored"></i>Kaggle</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects" class="surface-bg">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="accent-line"></div>
+      <span class="label">Projects</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+
+      <div class="card" style="padding:26px; display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <span class="badge b-cyan">FYP 2025–2026</span>
+          <h3 style="font-size:15px; font-weight:600; line-height:1.35; margin-top:10px;">
+            Semantic Digital Twin — Multimodal Scene Classification
+          </h3>
+        </div>
+        <p style="font-size:13px; color:var(--text-sec); line-height:1.7; flex:1;">
+          4-tier multimodal AI system fusing audio and video to classify 10 urban scene types —
+          <span style="color:var(--cyan);">94% video accuracy</span> and <span style="color:var(--cyan);">88% audio accuracy</span>
+          with cross-modal attention fusion. JWT auth, geolocation mapping, and Cloudflare Tunnel deployment.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">
+          <span class="badge b-gray">Python</span>
+          <span class="badge b-gray">Flutter</span>
+          <span class="badge b-gray">Flask</span>
+          <span class="badge b-gray">Node.js</span>
+          <span class="badge b-gray">MongoDB</span>
+        </div>
+      </div>
+
+      <div class="card" style="padding:26px; display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <span class="badge b-purple">2025</span>
+          <h3 style="font-size:15px; font-weight:600; line-height:1.35; margin-top:10px;">
+            Presidio-Based LLM Security Gateway
+          </h3>
+        </div>
+        <p style="font-size:13px; color:var(--text-sec); line-height:1.7; flex:1;">
+          Security gateway enforcing PII redaction and prompt injection detection for LLM inputs
+          using Microsoft Presidio — designed for production-grade input sanitization pipelines.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">
+          <span class="badge b-gray">Python</span>
+          <span class="badge b-gray">FastAPI</span>
+          <span class="badge b-gray">Presidio</span>
+          <span class="badge b-gray">NLP</span>
+        </div>
+      </div>
+
+      <div class="card" style="padding:26px; display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <span class="badge b-purple">2025</span>
+          <h3 style="font-size:15px; font-weight:600; line-height:1.35; margin-top:10px;">
+            SattarBaksh — E-Commerce Platform
+          </h3>
+        </div>
+        <p style="font-size:13px; color:var(--text-sec); line-height:1.7; flex:1;">
+          Full-stack e-commerce platform with JWT auth, bcrypt hashing, multi-step checkout,
+          wishlist, admin dashboard, and order tracking on a responsive mobile-first UI.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">
+          <span class="badge b-gray">React.js</span>
+          <span class="badge b-gray">Node.js</span>
+          <span class="badge b-gray">Express</span>
+          <span class="badge b-gray">MySQL</span>
+        </div>
+      </div>
+
+      <div class="card" style="padding:26px; display:flex; flex-direction:column; gap:14px;">
+        <div>
+          <span class="badge b-purple">2025</span>
+          <h3 style="font-size:15px; font-weight:600; line-height:1.35; margin-top:10px;">
+            Taste-AI — Food Recommendation System
+          </h3>
+        </div>
+        <p style="font-size:13px; color:var(--text-sec); line-height:1.7; flex:1;">
+          Cross-platform food recommendation app powered by collaborative filtering ML models
+          for personalized meal suggestions based on user preferences and health goals.
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:5px;">
+          <span class="badge b-gray">Flutter</span>
+          <span class="badge b-gray">Dart</span>
+          <span class="badge b-gray">Python</span>
+          <span class="badge b-gray">REST API</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Experience ── -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="accent-line"></div>
+      <span class="label">Experience</span>
+    </div>
+
+    <div style="display:flex; gap:20px;">
+
+      <!-- Timeline track -->
+      <div style="display:flex; flex-direction:column; align-items:center; padding-top:10px;">
+        <div class="tl-dot"></div>
+        <div class="tl-line"></div>
+        <div class="tl-dot" style="background:var(--purple); outline-color:var(--purple);"></div>
+      </div>
+
+      <!-- Cards -->
+      <div style="flex:1; display:flex; flex-direction:column; gap:20px;">
+
+        <div class="card" style="padding:24px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <div>
+              <h3 style="font-size:15px; font-weight:600;">Software Development Intern</h3>
+              <p style="font-size:13px; color:var(--cyan); margin-top:3px;">Ninjas Code Pvt Ltd</p>
+            </div>
+            <span class="badge b-gray">Feb 2025 – Apr 2025</span>
+          </div>
+          <p style="font-size:13px; color:var(--text-sec); line-height:1.7;">
+            Repository analytics and workflow optimization, improving contribution efficiency by 15%.
+            Managed 50+ issues and feature requests across active projects.
+          </p>
+        </div>
+
+        <div class="card" style="padding:24px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <div>
+              <h3 style="font-size:15px; font-weight:600;">Software Development Intern</h3>
+              <p style="font-size:13px; color:var(--cyan); margin-top:3px;">HighMark Technologies</p>
+            </div>
+            <span class="badge b-gray">Jul 2024 – Aug 2024</span>
+          </div>
+          <p style="font-size:13px; color:var(--text-sec); line-height:1.7;">
+            Built internal business tooling with Windows Forms and optimized SQL Server queries,
+            achieving a 20% performance improvement on core reporting pipelines.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Achievements ── -->
+<section id="achievements" class="surface-bg">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="accent-line"></div>
+      <span class="label">Achievements</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+
+      <div class="card" style="padding:22px;">
+        <span class="badge b-cyan" style="margin-bottom:12px;">2026</span>
+        <h4 style="font-size:14px; font-weight:600; margin-top:10px; margin-bottom:6px;">IEEE IGNITE 2026</h4>
+        <p style="font-size:12px; color:var(--text-sec);">FYP Runner-Up — Top Final Year Projects</p>
+      </div>
+
+      <div class="card" style="padding:22px;">
+        <span class="badge b-purple" style="margin-bottom:12px;">Academic</span>
+        <h4 style="font-size:14px; font-weight:600; margin-top:10px; margin-bottom:6px;">Merit Scholarship</h4>
+        <p style="font-size:12px; color:var(--text-sec);">Top 3 in Batch — Bahria University (Sem 6)</p>
+      </div>
+
+      <div class="card" style="padding:22px;">
+        <span class="badge b-gray" style="margin-bottom:12px;">2025</span>
+        <h4 style="font-size:14px; font-weight:600; margin-top:10px; margin-bottom:6px;">PM Laptop Scheme</h4>
+        <p style="font-size:12px; color:var(--text-sec);">Recipient — Academic Merit (2025)</p>
+      </div>
+
+      <div class="card" style="padding:22px;">
+        <span class="badge b-cyan" style="margin-bottom:12px;">Certification</span>
+        <h4 style="font-size:14px; font-weight:600; margin-top:10px; margin-bottom:6px;">ML Specialization</h4>
+        <p style="font-size:12px; color:var(--text-sec);">DeepLearning.AI × Stanford University</p>
+      </div>
+
+      <div class="card" style="padding:22px;">
+        <span class="badge b-purple" style="margin-bottom:12px;">Competitive</span>
+        <h4 style="font-size:14px; font-weight:600; margin-top:10px; margin-bottom:6px;">SOFTEC & ICPC</h4>
+        <p style="font-size:12px; color:var(--text-sec);">SOFTEC (FAST) & ICPC Regional Competitor</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer style="border-top:1px solid var(--border); padding:36px 0;">
+  <div class="wrap" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+    <span class="mono" style="font-size:12px; color:var(--text-muted);">hamza.afzal · Islamabad, PK</span>
+    <span style="font-size:12px; color:var(--text-muted); font-style:italic;">"First, solve the problem. Then, write the code."</span>
+  </div>
+</footer>
+
+</body>
+</html>
